@@ -35,17 +35,29 @@
 
                     <div class="table-responsive">
                         <h2>Result</h2>
-                        <ul>
-                            @foreach ($assignments->groupBy('bucket_id') as $bucketId => $assignments)
-                            <li>Bucket {{$assignments->first()->bucket->name}}:
-                                @foreach ($assignments as $assignment)
-                                {{$assignment->no_of_ball}} {{$assignment->ball->name}} balls
-                                @if (!$loop->last) and @endif
+                        <h5>Following are the suggested buckets : </h5>
+                        <table style="border-collapse: collapse; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="border: 1px solid #000; padding: 8px;">Bucket</th>
+                                    <th style="border: 1px solid #000; padding: 8px;">Balls</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($assignments->groupBy('bucket_id') as $bucketId => $assignments)
+                                <tr>
+                                    <td style="border: 1px solid #000; padding: 8px;">Bucket {{$assignments->first()->bucket->name}}</td>
+                                    <td style="border: 1px solid #000; padding: 8px;">
+                                        @foreach ($assignments as $assignment)
+                                        {{$assignment->no_of_ball}} {{$assignment->ball->name}} balls
+                                        @if (!$loop->last) and @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
                                 @endforeach
-                            </li>
-                            @endforeach
+                            </tbody>
+                        </table>
 
-                        </ul>
                     </div>
                 </div>
             </div>
