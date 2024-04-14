@@ -44,7 +44,7 @@ class BallBucketAssignmentController extends Controller
             $maxBall = $balls->where('size', $maxBallSize)->first();
             $maxBallName = $maxBall->name;
             $maxBallSize = $maxBall->size;
-            return redirect()->route('home')->with('error', "No bucket can hold a ball of size $maxBallSize named $maxBallName");
+            return redirect()->route('home')->with('error', "No bucket can hold a ball of size $maxBallSize named $maxBallName . Please return to the shop.");
         }
         // Array to hold ball-bucket assignments
         $ballBucketAssignment = [];
@@ -101,7 +101,7 @@ class BallBucketAssignmentController extends Controller
 
         // If no balls were assigned to any bucket, redirect with error message
         if (empty($ballBucketAssignment)) {
-            return redirect()->route('home')->with('error', 'Error: No balls assigned to any bucket. Please select a different ball or create a new bucket.');
+            return redirect()->route('home')->with('error', 'Error: No balls assigned to any bucket. Please return to the shop.');
         }
         // Insert the assignment data into the database
         BallBucketAssignment::insert($ballBucketAssignment);

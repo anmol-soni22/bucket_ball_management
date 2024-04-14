@@ -17,11 +17,10 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($balls as $ball)
-                                        <tr>
-                                            <td>{{ $ball->name }}</td>
-                                            <td><input name="ball_ids[{{ $ball->id }}]" type="number"
-                                                    min="0" step="1" value="0"></td>
-                                        </tr>
+                                    <tr>
+                                        <td>{{ $ball->name }}</td>
+                                        <td><input name="ball_ids[{{ $ball->id }}]" type="number" min="0" step="1" value="0"></td>
+                                    </tr>
                                     @endforeach
                                     <tr>
                                         <td colspan="2"><button class="btn btn-primary btn-xs">Place Ball in
@@ -37,9 +36,15 @@
                     <div class="table-responsive">
                         <h2>Result</h2>
                         <ul>
-                            @foreach ($assignments as $assignment)
-                                <li>{{$assignment->bucket->name}}: Place {{$assignment->no_of_ball}} {{$assignment->ball->name}} balls</li>
+                            @foreach ($assignments->groupBy('bucket_id') as $bucketId => $assignments)
+                            <li>Bucket {{$assignments->first()->bucket->name}}:
+                                @foreach ($assignments as $assignment)
+                                {{$assignment->no_of_ball}} {{$assignment->ball->name}} balls
+                                @if (!$loop->last) and @endif
+                                @endforeach
+                            </li>
                             @endforeach
+
                         </ul>
                     </div>
                 </div>
