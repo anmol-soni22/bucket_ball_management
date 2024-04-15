@@ -115,7 +115,7 @@ class BallBucketAssignmentController extends Controller
         // Check if the total number of balls assigned does not match the total number of balls requested
         $unplacedBalls = $totalBallsRequested - $totalBallsAssigned;
         if ($unplacedBalls > 0) {
-            return redirect()->route('home')->with('error', "Error: We were unable to place $unplacedBalls balls");
+            return redirect()->route('home')->with('error', "Error:Partial placement done , we were unable to place $unplacedBalls balls out of $totalBallsRequested");
         }
 
         return redirect()->route('home')->with('success', 'Bucket Assigned successfully');
