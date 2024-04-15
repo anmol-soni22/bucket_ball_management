@@ -35,17 +35,6 @@ class BallBucketAssignmentController extends Controller
             return redirect()->route('home')->with('error', 'All buckets are full');
         }
 
-        // Determine the maximum capacity of any bucket and the maximum size of any ball
-        $maxBucketCapacity = $buckets->max('capacity');
-        $maxBallSize = $balls->max('size');
-
-        // If the largest ball cannot fit into any bucket, redirect with error message
-        if ($maxBallSize > $maxBucketCapacity) {
-            $maxBall = $balls->where('size', $maxBallSize)->first();
-            $maxBallName = $maxBall->name;
-            $maxBallSize = $maxBall->size;
-            return redirect()->route('home')->with('error', "No bucket can hold a ball of size $maxBallSize named $maxBallName . Please return to the shop.");
-        }
         // Array to hold ball-bucket assignments
         $ballBucketAssignment = [];
 
